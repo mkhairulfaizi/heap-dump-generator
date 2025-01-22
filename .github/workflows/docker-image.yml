@@ -36,7 +36,7 @@ jobs:
 
     # Build Docker image
     - name: Build Docker Image
-      run: docker build --progress=plain -t my-app:${{ github.sha }} .
+      run: docker build --progress=plain -t heap-dump-generator:${{ github.sha }} .
     
     # Authenticate with Docker Hub
     - name: Log in to Docker Hub
@@ -47,4 +47,4 @@ jobs:
 
     # Push Docker image to Docker Hub
     - name: Push Docker Image
-      run: docker push my-app:${{ github.sha }}
+      run: docker push heap-dump-generator:${{ github.sha }}
