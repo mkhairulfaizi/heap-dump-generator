@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: heap-dump-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/heap-dumps # Change this to the path on your node where heap dumps should be stored.
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: heap-dump-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
