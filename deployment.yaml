@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels:
+    app: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+        - name: demo-container
+          image: demo-app:1.0
+          ports:
+            - containerPort: 8080
+          env:
+            # JVM Options for Heap Dump (Java 11)
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/heapdumps"
+          volumeMounts:
+            - mountPath: /heapdumps
+              name: heap-dump-volume
+      volumes:
+        # Volume for storing heap dumps
+        - name: heap-dump-volume
+          emptyDir: {}
