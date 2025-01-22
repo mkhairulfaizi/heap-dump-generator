@@ -10,18 +10,10 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 Deploy a network plugin (e.g., Calico):
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 
-Push the Docker Image: Since Play with Kubernetes doesn't support a local Docker registry, use Docker Hub:
-Build the Docker Image
-docker tag demo-app:1.0 <your-dockerhub-username>/demo-app:1.0
-docker push <your-dockerhub-username>/demo-app:1.0
-
-Update the image field in deployment.yaml to:
-image: <your-dockerhub-username>/demo-app:1.0
-
 Apply Kubernetes Configurations: Upload the YAML files to the Play with Kubernetes session, or create them directly using nano. 
 Then apply them:
+kubectl apply -f persistent-volume.yaml
 kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
 kubectl apply -f ingress.yaml
 
 Expose the Ingress:
